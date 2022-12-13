@@ -20,12 +20,13 @@ struct PGNInfo {
 }
 
 // PGN result constants
-const WHITE_WINS: u8 = 0;
-const BLACK_WINS: u8 = 1;
-const DRAW: u8 = 2;
+const NO_RESULT: u8 = 0;
+const WHITE_WINS: u8 = 1;
+const BLACK_WINS: u8 = 2;
+const DRAW: u8 = 3;
 
 impl PGNInfo {
-    fn new() -> PGNInfo {
+    fn new() -> Self {
         PGNInfo {
             tags: HashMap::new(),
             moves: Vec::new(),
@@ -55,8 +56,6 @@ pub fn read_pgn(path_of_file: &str) {
             .insert(String::from(&caps[1]), String::from(&caps[2]));
     }
 
-    // pgn_info.tags.remove("Result");
-    println!("Result: {}", pgn_info.tags.get("Result").unwrap());
     if pgn_info.tags.contains_key("Result") {
         let result_value = pgn_info.tags.get("Result").unwrap();
         if result_value == "1-0" {

@@ -29,7 +29,7 @@ pub enum Color {
     White,
     Black,
     Both,
-    None,
+    NoColor,
 }
 
 pub enum Piece {
@@ -39,7 +39,7 @@ pub enum Piece {
     Rook,
     Queen,
     King,
-    None,
+    NoPiece,
 }
 
 pub fn get_sq(r: u8, f: u8) -> u8 {
@@ -67,4 +67,13 @@ pub fn is_light_sq(sq: u8) -> bool {
 
 pub fn get_colorless(piece: u8) -> u8 {
     piece % 6
+}
+
+pub fn get_sq_from_str(sq_str: &str) -> u8 {
+    if sq_str.len() != 2 {
+        panic!("Incorrect length!");
+    }
+    let r = (sq_str.chars().nth(0).unwrap() as u8) - ('0' as u8);
+    let f = (sq_str.chars().nth(1).unwrap() as u8) - ('a' as u8);
+    get_sq(r, f)
 }
